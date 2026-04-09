@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+:root {
+  --brand: #3C3489;
+  --brand-light: #EEEDFE;
+  --brand-mid: #534AB7;
+  --success: #3B6D11;
+  --success-light: #EAF3DE;
+  --warn: #854F0B;
+  --warn-light: #FAEEDA;
+  --danger: #A32D2D;
+  --danger-light: #FCEBEB;
+  --text-1: #1a1a2e;
+  --text-2: #5a596e;
+  --text-3: #9998aa;
+  --surface-1: #ffffff;
+  --surface-2: #f5f4fc;
+  --surface-3: #eeedf8;
+  --border: #e2e1f0;
+  --radius: 14px;
+  --radius-sm: 8px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: var(--surface-2);
+  color: var(--text-1);
+  -webkit-font-smoothing: antialiased;
+}
+
+html { overscroll-behavior: none; }
+
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
