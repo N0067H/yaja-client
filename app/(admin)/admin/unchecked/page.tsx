@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { AlertCircle, Pencil, X, CheckCircle2, Building2, Loader2 } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
 import { fetchAdminData, manualCheck, setSelectedDate } from '@/lib/slices/adminSlice';
-import { getBuildingsAPI } from '@/lib/mock/api';
+import { getBuildingsAPI } from '@/lib/api';
 import { Building, CheckRecord } from '@/types';
 
 export default function UncheckedPage() {

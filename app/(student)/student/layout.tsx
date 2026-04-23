@@ -1,11 +1,12 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { Home, MapPin, Clock, LogOut } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
 import { logout } from '@/lib/slices/authSlice';
 import { toast } from 'react-toastify';
+import { getTodayRecordAPI } from '@/lib/mock/api';
 
 const TABS = [
   { href: '/student', label: '홈', icon: Home },
@@ -23,6 +24,40 @@ export default function StudentLayout({ children }: { children: React.ReactNode 
     if (!isAuthenticated) { router.replace('/'); return; }
     if (user?.role !== 'student') { router.replace('/admin'); }
   }, [isAuthenticated, user, router]);
+
+  // 7:10 PM 미체크 알림
+  const notifiedRef = useRef(false);
+  useEffect(() => {
+    if (!user || user.role !== 'student') return;
+
+    if ('Notification' in window && Notification.permission === 'default') {
+      Notification.requestPermission();
+    }
+
+    const now = new Date();
+    const deadline = new Date();
+    deadline.setHours(19, 10, 0, 0);
+    const msUntilDeadline = deadline.getTime() - now.getTime();
+    if (msUntilDeadline <= 0) return;
+
+    const timer = setTimeout(async () => {
+      if (notifiedRef.current) return;
+      const todayStr = new Date().toISOString().split('T')[0];
+      const record = await getTodayRecordAPI(user.id, todayStr);
+      if (!record || record.status !== 'checked') {
+        notifiedRef.current = true;
+        toast.warn('⏰ 7시 10분이 됐어요! 아직 야자 위치를 등록하지 않았어요.', { autoClose: 10000 });
+        if ('Notification' in window && Notification.permission === 'granted') {
+          new Notification('야자 현황 체크', {
+            body: '7시 10분이 됐어요! 아직 야자 위치를 등록하지 않았어요.',
+            icon: '/favicon.ico',
+          });
+        }
+      }
+    }, msUntilDeadline);
+
+    return () => clearTimeout(timer);
+  }, [user]);
 
   function handleLogout() {
     dispatch(logout());

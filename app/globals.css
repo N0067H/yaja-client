@@ -2,22 +2,22 @@
 @import "tailwindcss";
 
 :root {
-  --brand: #3C3489;
-  --brand-light: #EEEDFE;
-  --brand-mid: #534AB7;
-  --success: #3B6D11;
-  --success-light: #EAF3DE;
-  --warn: #854F0B;
-  --warn-light: #FAEEDA;
-  --danger: #A32D2D;
-  --danger-light: #FCEBEB;
-  --text-1: #1a1a2e;
-  --text-2: #5a596e;
-  --text-3: #9998aa;
+  --brand: #16a34a;
+  --brand-light: #f0fdf4;
+  --brand-mid: #15803d;
+  --success: #15803d;
+  --success-light: #dcfce7;
+  --warn: #92400e;
+  --warn-light: #fef3c7;
+  --danger: #b91c1c;
+  --danger-light: #fee2e2;
+  --text-1: #111827;
+  --text-2: #6b7280;
+  --text-3: #9ca3af;
   --surface-1: #ffffff;
-  --surface-2: #f5f4fc;
-  --surface-3: #eeedf8;
-  --border: #e2e1f0;
+  --surface-2: #f9fafb;
+  --surface-3: #f0fdf4;
+  --border: #e5e7eb;
   --radius: 14px;
   --radius-sm: 8px;
 }

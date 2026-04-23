@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { LayoutDashboard, Users, History, Download, Settings, LogOut, BookOpen } from 'lucide-react';
+import { LayoutDashboard, Users, History, Download, Settings, LogOut } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
 import { logout } from '@/lib/slices/authSlice';
 import { toast } from 'react-toastify';
@@ -39,12 +39,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       {/* 상단 헤더 */}
       <header className="sticky top-0 z-30 px-6 py-4 flex items-center justify-between" style={{ background: 'var(--surface-1)', borderBottom: '1px solid var(--border)' }}>
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: 'var(--brand)' }}>
-            <BookOpen className="w-4 h-4 text-white" />
-          </div>
+          <img src="/logo2.png" alt="경소마고 로고" className="h-7 w-auto object-contain" />
           <div>
-            <p className="text-sm font-bold" style={{ color: 'var(--brand)' }}>야자 현황 체크</p>
-            <p className="text-xs" style={{ color: 'var(--text-3)' }}>관리자 패널</p>
+            <p className="text-sm font-bold" style={{ color: 'var(--brand)' }}>야자현황체크</p>
+            <p className="text-xs" style={{ color: 'var(--text-3)' }}>관리자 페이지</p>
           </div>
         </div>
         <div className="flex items-center gap-3">

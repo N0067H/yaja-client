@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { CheckState } from '@/types';
-import { getTodayRecordAPI, submitCheckAPI, getStudentHistoryAPI } from '@/lib/mock/api';
+import { getTodayRecordAPI, submitCheckAPI, getStudentHistoryAPI } from '@/lib/api';
 
 const initialState: CheckState = {
   todayRecord: null,

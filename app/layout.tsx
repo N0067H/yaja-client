@@ -10,7 +10,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ko">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
-        <meta name="theme-color" content="#3C3489" />
+        <meta name="theme-color" content="#16a34a" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <title>야자 현황 체크</title>
       </head>
@@ -29,7 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               fontFamily: "'Noto Sans KR', sans-serif",
               fontSize: '14px',
               borderRadius: '12px',
-              boxShadow: '0 4px 24px rgba(60,52,137,0.15)',
+              boxShadow: '0 4px 24px rgba(22,163,74,0.15)',
             }}
           />
         </Provider>

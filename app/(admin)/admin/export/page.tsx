@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { Download, FileSpreadsheet, FileText, CalendarDays, Loader2 } from 'lucide-react';
-import { getAllRecordsAPI } from '@/lib/mock/api';
+import { getAllRecordsRangeAPI } from '@/lib/api';
 
 export default function ExportPage() {
   const [startDate, setStartDate] = useState(() => {
@@ -13,23 +13,11 @@ export default function ExportPage() {
   const [endDate, setEndDate] = useState(() => new Date().toISOString().split('T')[0]);
   const [loading, setLoading] = useState(false);
 
-  async function getAllRecordsForRange() {
-    const records = [];
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
-      const dateStr = d.toISOString().split('T')[0];
-      const dayRecords = await getAllRecordsAPI(dateStr);
-      records.push(...dayRecords);
-    }
-    return records;
-  }
-
   async function handleExportCSV() {
     if (startDate > endDate) { toast.error('시작일이 종료일보다 늦을 수 없습니다.'); return; }
     setLoading(true);
     try {
-      const records = await getAllRecordsForRange();
+      const records = await getAllRecordsRangeAPI(startDate, endDate);
       const header = '날짜,학년,반,이름,상태,건물,층,장소,체크시각';
       const rows = records.map((r) =>
         [r.date, r.grade, r.classNum, r.studentName, r.status === 'checked' ? '완료' : '미체크',
@@ -55,7 +43,7 @@ export default function ExportPage() {
     if (startDate > endDate) { toast.error('시작일이 종료일보다 늦을 수 없습니다.'); return; }
     setLoading(true);
     try {
-      const records = await getAllRecordsForRange();
+      const records = await getAllRecordsRangeAPI(startDate, endDate);
       const json = JSON.stringify(records, null, 2);
       const blob = new Blob([json], { type: 'application/json' });
       const url = URL.createObjectURL(blob);

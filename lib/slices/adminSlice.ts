@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { AdminState } from '@/types';
-import { getDailyStatsAPI, getRoomStatsAPI, getUncheckedStudentsAPI, getAllRecordsAPI, manualCheckAPI } from '@/lib/mock/api';
+import { getDailyStatsAPI, getRoomStatsAPI, getUncheckedStudentsAPI, getAllRecordsAPI, manualCheckAPI } from '@/lib/api';
 
 const todayStr = new Date().toISOString().split('T')[0];
 

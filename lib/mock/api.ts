@@ -54,7 +54,17 @@ export async function submitCheckAPI(
 ): Promise<CheckRecord> {
   await delay(300);
   const student = MOCK_USERS.find((u) => u.id === studentId)!;
-  const room = MOCK_BUILDINGS.flatMap((b) => b.floors.flatMap((f) => f.rooms)).find((r) => r.id === roomId);
+  const fromBuildings = MOCK_BUILDINGS.flatMap((b) => b.floors.flatMap((f) => f.rooms)).find((r) => r.id === roomId);
+  const room = fromBuildings ?? (roomId.startsWith('classroom-') && student.grade && student.classNum
+    ? {
+        id: roomId,
+        name: `${student.grade}학년 ${student.classNum}반 교실`,
+        floorId: 'floor-classroom',
+        buildingId: 'building-classroom',
+        buildingName: '내 교실',
+        floorLabel: `${student.grade}학년 ${student.classNum}반`,
+      }
+    : null);
   if (!room) throw new Error('장소를 찾을 수 없습니다.');
 
   const now = new Date();

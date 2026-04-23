@@ -2,11 +2,13 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
-import { CheckCircle2, Loader2, Building2, ChevronRight } from 'lucide-react';
+import { CheckCircle2, Loader2, Building2, ChevronRight, GraduationCap } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
 import { submitCheck, fetchTodayRecord } from '@/lib/slices/checkSlice';
 import { getBuildingsAPI } from '@/lib/mock/api';
 import { Building, Room } from '@/types';
+
+const CLASSROOM_BUILDING_ID = 'building-classroom';
 
 export default function CheckPage() {
   const router = useRouter();
@@ -22,8 +24,30 @@ export default function CheckPage() {
 
   useEffect(() => {
     getBuildingsAPI().then((b) => {
-      setBuildings(b);
-      setActiveBuilding(b[0]?.id ?? '');
+      if (user?.grade && user?.classNum) {
+        const classroomBuilding: Building = {
+          id: CLASSROOM_BUILDING_ID,
+          name: '내 교실',
+          floors: [{
+            id: 'floor-classroom',
+            number: 0,
+            label: `${user.grade}학년 ${user.classNum}반`,
+            rooms: [{
+              id: `classroom-${user.grade}-${user.classNum}`,
+              name: `${user.grade}학년 ${user.classNum}반 교실`,
+              floorId: 'floor-classroom',
+              buildingId: CLASSROOM_BUILDING_ID,
+              buildingName: '내 교실',
+              floorLabel: `${user.grade}학년 ${user.classNum}반`,
+            }],
+          }],
+        };
+        setBuildings([classroomBuilding, ...b]);
+        setActiveBuilding(CLASSROOM_BUILDING_ID);
+      } else {
+        setBuildings(b);
+        setActiveBuilding(b[0]?.id ?? '');
+      }
     });
     if (user) dispatch(fetchTodayRecord({ studentId: user.id, date: todayStr }));
   }, [user, todayStr, dispatch]);
@@ -76,16 +100,22 @@ export default function CheckPage() {
 
         {/* 건물 탭 */}
         <div className="flex gap-2 overflow-x-auto pb-1" style={{ scrollbarWidth: 'none' }}>
-          {buildings.map((b) => (
-            <button key={b.id} onClick={() => setActiveBuilding(b.id)}
-              className="flex-shrink-0 flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium transition-all"
-              style={activeBuilding === b.id
-                ? { background: 'var(--brand)', color: '#fff' }
-                : { background: 'var(--surface-1)', color: 'var(--text-2)', border: '1px solid var(--border)' }}>
-              <Building2 className="w-3.5 h-3.5" />
-              {b.name}
-            </button>
-          ))}
+          {buildings.map((b) => {
+            const isClassroom = b.id === CLASSROOM_BUILDING_ID;
+            const isActive = activeBuilding === b.id;
+            return (
+              <button key={b.id} onClick={() => setActiveBuilding(b.id)}
+                className="flex-shrink-0 flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium transition-all"
+                style={isActive
+                  ? { background: 'var(--brand)', color: '#fff' }
+                  : { background: 'var(--surface-1)', color: 'var(--text-2)', border: '1px solid var(--border)' }}>
+                {isClassroom
+                  ? <GraduationCap className="w-3.5 h-3.5" />
+                  : <Building2 className="w-3.5 h-3.5" />}
+                {b.name}
+              </button>
+            );
+          })}
         </div>
 
         {/* 호실 목록 */}

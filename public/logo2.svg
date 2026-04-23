@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Outer ring (brand green) -->
+  <circle cx="100" cy="100" r="98" fill="#15803d"/>
+
+  <!-- Inner dark background -->
+  <circle cx="100" cy="100" r="85" fill="#052e16"/>
+
+  <!-- Subtle glow -->
+  <circle cx="100" cy="92" r="64" fill="#16a34a" opacity="0.08"/>
+
+  <!-- Moon crescent -->
+  <defs>
+    <mask id="crescent-mask">
+      <rect width="200" height="200" fill="white"/>
+      <circle cx="117" cy="76" r="37" fill="black"/>
+    </mask>
+  </defs>
+  <circle cx="95" cy="82" r="41" fill="#4ade80" mask="url(#crescent-mask)"/>
+
+  <!-- Check mark -->
+  <path d="M 57 130 L 82 155 L 148 106"
+    stroke="#4ade80" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- Stars (scattered) -->
+  <circle cx="150" cy="53" r="3"   fill="#86efac" opacity="0.90"/>
+  <circle cx="57"  cy="65" r="2.3" fill="#86efac" opacity="0.75"/>
+  <circle cx="160" cy="89" r="1.9" fill="#86efac" opacity="0.65"/>
+  <circle cx="46"  cy="98" r="1.5" fill="#86efac" opacity="0.50"/>
+  <circle cx="142" cy="70" r="1.3" fill="#86efac" opacity="0.55"/>
+</svg>
